@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import React, { Component }  from 'react'
 import Home from "./pages/Home"
-import SingleDog from "./pages/SingleDog"
+import SingleDog from "./pages/SingleDog";
 
 function App() {
   return (
