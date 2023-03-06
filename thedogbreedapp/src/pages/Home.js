@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import {Link } from 'react-router-dom';
 
 export default function Home() {
   const [dogs, setDogs] = useState([])
@@ -30,12 +31,12 @@ export default function Home() {
         </h1>
       ) : (
         <>
-          <section className='p-8 max-w-6-xl mx-auto'>
+          <section className='p-8 max-w-7-xl mx-auto'>
             <div className='text-center'>
               <h1 className='flex items-center justify-center text-white
    text-center px-5 text-3xl  font-bold lg:text-5xl' >The Dog App</h1>
 
-              <p className='my-8 text-white'>Deze applicatie maakt gebruik van{""}
+              <p className='my-8 text-white'>Deze applicatie maakt gebruik van {""}
                 <a href='https://thedogapi.com' className='text-indigo-600 underline active:text-orange-400'>
                   The Dog Api</a>
               </p>
@@ -44,13 +45,16 @@ export default function Home() {
                 </input>
               </form>
             </div>
-          <div>
+          <div className='grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 my-10 lg:my-20'>
           {dogs.map((dog) =>
-          <article key={dog.id}>
-            <img src={dog.image.url} alt={dog.name} />
-            <h3>{dog.name}</h3>
-            <p> Ras voor: {dog.bred_for}</p>
-          </article>)}
+          <Link to={`/${dog.name}`} key={dog.id} className='bg-slate-700 p-4 rounded hover:bg-slate-600 transition-all duration-200'>
+              <article  >
+            <img className='rounded md:h-72 w-full object-cover' loading='lazy' src={dog.image.url} alt={dog.name} />
+            <h3 className='text-white text-lg font-bold mb-4 my-4'>{dog.name}</h3>
+            <p className='text-slate-400'> Ras voor: {dog.bred_for}</p>
+          </article>
+          </Link>
+          )}
 
           </div>
 
