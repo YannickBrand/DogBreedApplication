@@ -28,7 +28,7 @@ export default function SingleDog() {
         {dog.map((item) => (
           <div
             key={item.id}
-            className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 md:place-items-center"
+            className="grid grid-cols-1 gap-8 p-8 md:grid-cols-2 md:place-items-center bg-white"
           >
             <article>
               <img
@@ -37,45 +37,45 @@ export default function SingleDog() {
               />
             </article>
             <article>
-              <h1 className="text-3xl font-bold text-white mb-8 lg:text-5xl">
+              <h1 className="text-3xl font-bold text-black mb-8 lg:text-5xl">
                 {item.name}
               </h1>
               {item.description && (
-                <p className="text-slate-400 mb-8 text-sm lg:text-base leading-loose lg:leading-relaxed">
+                <p className=" mb-8 text-sm lg:text-base leading-loose lg:leading-relaxed">
                   {item.description}
                 </p>
               )}
 
-              <ul className="text-sm text-slate-400 leading-loose lg:text-base lg:leading-relaxed">
+              <ul className="text-sm text-black leading-loose lg:text-base lg:leading-relaxed">
                 <li>
-                  <span className="font-bold text-slate-200">Bred For:</span>{" "}
+                  <span className="font-bold text-black ">Bred For:</span>{" "}
                   {item.bred_for}
                 </li>
                 <li>
-                  <span className="font-bold text-slate-200">Height:</span>{" "}
+                  <span className="font-bold text-black ">Height:</span>{" "}
                   {item.height.metric} cm
                 </li>
                 <li>
-                  <span className="font-bold text-slate-200">Weight:</span>{" "}
+                  <span className="font-bold text-black ">Weight:</span>{" "}
                   {item.weight.metric} kgs
                 </li>
                 <li>
-                  <span className="font-bold text-slate-200">Breed Group:</span>{" "}
+                  <span className="font-bold text-black ">Breed Group:</span>{" "}
                   {item.breed_group}
                 </li>
                 <li>
-                  <span className="font-bold text-slate-200">Lifespan:</span>{" "}
+                  <span className="font-bold text-black ">Lifespan:</span>{" "}
                   {item.life_span}
                 </li>
                 <li>
-                  <span className="font-bold text-slate-200">Temperament:</span>{" "}
+                  <span className="font-bold ">Temperament:</span>{" "}
                   {item.temperament}
                 </li>
               </ul>
 
               <Link
                 to="/"
-                className="inline-block bg-slate-600 py-2 px-6 rounded mt-8 text-white hover:bg-slate-500 transition-all duration-200"
+                className="inline-block bg-black py-2 px-6 rounded mt-8 text-white hover:bg-slate-500 transition-all duration-200"
               >
                 &larr; Back
               </Link>

@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply bg-slate-800;
-  
+  background-image: url("/src/assets/background.png");
 }
 
 code {

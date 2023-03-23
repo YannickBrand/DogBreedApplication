@@ -92,13 +92,13 @@ export default function Home() {
         </h1>
       ) : (
         <>
-          <section className="p-8 max-w-7xl mx-auto">
-            <div className="text-center">
-              <h1 className="flex items-center justify-center text-center px-5 text-3xl font-bold lg:text-5xl text-white">
+          <section className="p-8 max-w-7xl mx-auto ">
+            <div className="pt-10 text-center bg-white rounded">
+              <h1 className="flex items-center justify-center text-center px-5 text-3xl font-bold lg:text-5xl ">
               <a href="/">  Dog breed application</a>
                 
               </h1>
-              <p className="my-8 text-white">
+              <p className="my-8">
                 This application uses the :{" "}
                 <a
                   href="https://thedogapi.com"
@@ -123,8 +123,8 @@ export default function Home() {
                   onChange={(e) => setText(e.target.value)}
                 />
               </form>
-          <button className="my-8 text-white inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 hover:border-gray font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByWeight}>    Weight  {sorted.sorted === "weight" ? renderArrow() : null} 	 </button>
-          <button className="my-8 ml-10 text-white inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 hover:border-gray font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByLifeSpan}>    Life expectation  {sorted.sorted === "life_span" ? renderArrow() : null} 	 </button>
+          <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByWeight}>    Weight  {sorted.sorted === "weight" ? renderArrow() : null} 	 </button>
+          <button className="my-8 ml-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByLifeSpan}>    Life expectation  {sorted.sorted === "life_span" ? renderArrow() : null} 	 </button>
 
             </div>
 
@@ -134,7 +134,7 @@ export default function Home() {
                   <Link
                     to={`/${dog.name}`}
                     key={dog.id}
-                    className="bg-slate-700 p-4 rounded hover:bg-slate-600 transition-all duration-200"
+                    className="bg-white p-4 rounded hover:bg-grat transition-all duration-200"
                   >
                     <article>
                       <img
@@ -143,12 +143,12 @@ export default function Home() {
                         loading="lazy"
                         className="rounded md:h-72 w-full object-cover"
                       />
-                      <h3 className="text-white text-lg font-bold mt-4">
+                      <h3 className="text-black text-lg font-bold mt-4">
                         {dog.name}
                       </h3>
-                      <p className="text-slate-400">Bred For: {dog.bred_for}</p>
-                      <p className="text-slate-400">Weight: {dog.weight.metric} KG</p>
-                      <p className="text-slate-400">Life expectation: {dog.life_span}</p>
+                      <p className="text-black">Bred For: {dog.bred_for}</p>
+                      <p className="text-black">Weight: {dog.weight.metric} KG</p>
+                      <p className="text-black">Life expectation: {dog.life_span}</p>
                     </article>
                   </Link>
                 ))
