@@ -2,9 +2,24 @@ import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 export default function Home() {
-  const [dogs, setDogs] = useState([])
-  const [text, setText] = useState("")
-  const [searched, setSearched] = useState(false)
+  const [dogs, setDogs] = useState([]);
+  const [text, setText] = useState("");
+  const [searched, setSearched] = useState(false);
+  const [sorted, setSorted] = useState({ sorted: "weight", reversed: false});
+
+  const sortByWeight = () => {
+    setSorted ({sorted: "weight", reversed: !sorted.reversed});
+    const dogCopy = [...dogs]
+    dogCopy.sort((dogA, dogB) => {
+      if (sorted.reversed) {
+        return dogA.weight.metric - dogB.weight.metric;
+      }
+      return dogB.weight.metric - dogA.weight.metric
+    });
+    setDogs(dogCopy);
+    console.log('e')
+  }
+
 
   useEffect(() => {
     const fetchDogData = async () => {
@@ -54,7 +69,7 @@ export default function Home() {
                 The Dog App
               </h1>
               <p className="my-8 text-white">
-                This application is powered by{" "}
+                Deze applicatie maakt gebruik van :{" "}
                 <a
                   href="https://thedogapi.com"
                   className="text-indigo-600 underline active:text-orange-400"
@@ -78,6 +93,7 @@ export default function Home() {
                   onChange={(e) => setText(e.target.value)}
                 />
               </form>
+          <button className="my-8 text-white" onClick={sortByWeight}> Sorteer op gewicht</button>
             </div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 my-10 lg:my-20">
@@ -99,6 +115,7 @@ export default function Home() {
                         {dog.name}
                       </h3>
                       <p className="text-slate-400">Bred For: {dog.bred_for}</p>
+                      <p className="text-slate-400">Gewicht: {dog.weight.metric} KG</p>
                     </article>
                   </Link>
                 ))
