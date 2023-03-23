@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 export default function Home() {
   const [dogs, setDogs] = useState([]);
@@ -10,14 +11,42 @@ export default function Home() {
   const sortByWeight = () => {
     setSorted ({sorted: "weight", reversed: !sorted.reversed});
     const dogCopy = [...dogs]
+    
     dogCopy.sort((dogA, dogB) => {
       if (sorted.reversed) {
-        return dogA.weight.metric - dogB.weight.metric;
+        return parseInt(dogA.weight.metric) - parseInt(dogB.weight.metric);
+
       }
-      return dogB.weight.metric - dogA.weight.metric
+      // console.log(dogA.weight.metric.substring(0,2))
+      return parseInt(dogB.weight.metric) - parseInt(dogA.weight.metric);
     });
     setDogs(dogCopy);
-    console.log('e')
+    
+    
+  }
+
+  const sortByLifeSpan = () => {
+    setSorted ({sorted: "life_span", reversed: !sorted.reversed});
+    const dogCopy = [...dogs]
+    
+    dogCopy.sort((dogA, dogB) => {
+      if (sorted.reversed) {
+        return parseInt(dogA.life_span) - parseInt(dogB.life_span);
+
+      }
+      // console.log(dogA.weight.metric.substring(0,2))
+      return parseInt(dogB.life_span) - parseInt(dogA.life_span);
+    });
+    setDogs(dogCopy);
+    
+    
+  }
+
+  const renderArrow = () => {
+    if(sorted.reversed){
+      return <FaArrowUp className="ml-2 "/>
+    }
+    return <FaArrowDown className="ml-2"/>
   }
 
 
@@ -66,13 +95,14 @@ export default function Home() {
           <section className="p-8 max-w-7xl mx-auto">
             <div className="text-center">
               <h1 className="flex items-center justify-center text-center px-5 text-3xl font-bold lg:text-5xl text-white">
-                The Dog App
+              <a href="/">  Dog breed application</a>
+                
               </h1>
               <p className="my-8 text-white">
-                Deze applicatie maakt gebruik van :{" "}
+                This application uses the :{" "}
                 <a
                   href="https://thedogapi.com"
-                  className="text-indigo-600 underline active:text-orange-400"
+                  className="text-gray-600 underline active:text-orange-400"
                 >
                   The Dog Api
                 </a>
@@ -93,7 +123,9 @@ export default function Home() {
                   onChange={(e) => setText(e.target.value)}
                 />
               </form>
-          <button className="my-8 text-white" onClick={sortByWeight}> Sorteer op gewicht</button>
+          <button className="my-8 text-white inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 hover:border-gray font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByWeight}>    Weight  {sorted.sorted === "weight" ? renderArrow() : null} 	 </button>
+          <button className="my-8 ml-10 text-white inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 hover:border-gray font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByLifeSpan}>    Life expectation  {sorted.sorted === "life_span" ? renderArrow() : null} 	 </button>
+
             </div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 my-10 lg:my-20">
@@ -115,7 +147,8 @@ export default function Home() {
                         {dog.name}
                       </h3>
                       <p className="text-slate-400">Bred For: {dog.bred_for}</p>
-                      <p className="text-slate-400">Gewicht: {dog.weight.metric} KG</p>
+                      <p className="text-slate-400">Weight: {dog.weight.metric} KG</p>
+                      <p className="text-slate-400">Life expectation: {dog.life_span}</p>
                     </article>
                   </Link>
                 ))
