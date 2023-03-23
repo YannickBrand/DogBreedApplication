@@ -158,7 +158,7 @@ export default function Home() {
                     <Link
                       to={`/${dog.name}`}
                       key={dog.id}
-                      className="bg-slate-700 p-4 rounded hover:bg-slate-600 transition-all duration-200"
+                      className="bg-white p-4 rounded hover:bg-gray transition-all duration-200"
                     >
                       <article>
                         <img
@@ -166,7 +166,7 @@ export default function Home() {
                           alt={dog.name}
                           className="rounded md:h-72 w-full object-cover"
                         />
-                        <h3 className="text-white text-lg font-bold mt-4">
+                        <h3 className="text-black text-lg font-bold mt-4">
                           {dog.name}
                         </h3>
                         <p className="text-slate-400">
