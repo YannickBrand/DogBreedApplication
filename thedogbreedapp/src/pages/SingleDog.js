@@ -47,10 +47,7 @@ export default function SingleDog() {
               )}
 
               <ul className="text-sm text-black leading-loose lg:text-base lg:leading-relaxed">
-                <li>
-                  <span className="font-bold text-black ">Bred For:</span>{" "}
-                  {item.bred_for}
-                </li>
+                
                 <li>
                   <span className="font-bold text-black ">Height:</span>{" "}
                   {item.height.metric} cm
@@ -70,6 +67,10 @@ export default function SingleDog() {
                 <li>
                   <span className="font-bold ">Temperament:</span>{" "}
                   {item.temperament}
+                </li>
+                <li>
+                  <span className="font-bold text-black ">Bred For:</span>{" "}
+                  {item.bred_for}
                 </li>
               </ul>
 
