@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 export default function Home() {
-  
-  const [dogs, setDogs] = useState([]);
-  const [text, setText] = useState("");
-  const [searched, setSearched] = useState(false);
-  const [sorted, setSorted] = useState({ sorted: "name",reversed: true });
-  const searchVariable = "height.metric"; 
+  // State-variabelen
+  const [dogs, setDogs] = useState([]); // Een array om alle honden op te slaan die vanuit de API zijn opgehaald
+  const [text, setText] = useState(""); // Een string om de zoekopdracht van de gebruiker op te slaan
+  const [searched, setSearched] = useState(false); // Een boolean om bij te houden of er op een zoekopdracht is gezocht of niet
+  const [sorted, setSorted] = useState({ sorted: "name",reversed: true }); // Een object om de sortering van hondenrassen bij te houden. De standaardinstelling sorteert de hondenrassen op naam, in omgekeerde volgorde.
 
+  // Sorteert de honden op naam
   const sortByName = () => {
     setSorted({ sorted: "name", reversed: !sorted.reversed });
     const dogCopy = [...dogs]
@@ -17,51 +17,39 @@ export default function Home() {
       if (sorted.reversed) {   
         return dogA.name.localeCompare(dogB.name);
       }
-      console.log(dogA.name.localeCompare(dogB.name))
       return dogB.name.localeCompare(dogA.name);
     });
     setDogs(dogCopy);  
   }
 
-  const sortByHeight =  () => {
-    const dogCopy = [...dogs]
+  // Sorteert de hondenrassen op een eigenschap (hoogte, gewicht of levensduur)
+  const sortDogs = (property) => {
+    const dogCopy = [...dogs];
     dogCopy.sort((dogA, dogB) => {
-      if (sorted.reversed) {
-       
-        return parseInt(dogA.height.metric) - parseInt(dogB.height.metric);
-      }
-      return parseInt(dogB.height.metric) - parseInt(dogA.height.metric);
+      const valueA = property === 'life_span' ? parseInt(dogA[property]) : parseInt(dogA[property].metric);
+      const valueB = property === 'life_span' ? parseInt(dogB[property]) : parseInt(dogB[property].metric);
+      return sorted.reversed ? valueA - valueB : valueB - valueA;
     });
     setDogs(dogCopy);
-    setSorted({ sorted: "height.metric", reversed: !sorted.reversed });
+    setSorted({ sorted: property, reversed: !sorted.reversed });
   }
 
+  // Sorteert de hondenrassen op hoogte
+  const sortByHeight = () => {
+    sortDogs('height');
+  }
+
+  // Sorteert de hondenrassen op gewicht
   const sortByWeight = () => {
-    const dogCopy = [...dogs]
-    dogCopy.sort((dogA, dogB) => {
-      if (sorted.reversed) {
-        return parseInt(dogA.weight.metric) - parseInt(dogB.weight.metric);
-      }
-      return parseInt(dogB.weight.metric) - parseInt(dogA.weight.metric);
-    });
-    setDogs(dogCopy);
-    setSorted({ sorted: "weight", reversed: !sorted.reversed });
+    sortDogs('weight');
   }
 
-
+  // Sorteert de hondenrassen op levensduur
   const sortByLifeSpan = () => {
-    const dogCopy = [...dogs]
-    dogCopy.sort((dogA, dogB) => {
-      if (sorted.reversed) {
-        return parseInt(dogA.life_span) - parseInt(dogB.life_span);
-      }
-      return parseInt(dogB.life_span) - parseInt(dogA.life_span);
-    });
-    setDogs(dogCopy);
-    setSorted({ sorted: "life_span", reversed: !sorted.reversed });
+    sortDogs('life_span');
   }
 
-
+  // Geeft een pijl-icoon weer dat de sorteerrichting aangeeft
   const renderArrow = () => {
     if (sorted.reversed) {
       return <FaArrowUp className="ml-2 " />
@@ -69,7 +57,7 @@ export default function Home() {
     return <FaArrowDown className="ml-2" />
   }
 
-
+  // Haal hondengegevens op en stel deze in de staat met behulp van de `setDogs`-functie
   useEffect(() => {
     const fetchDogData = async () => {
       try {
@@ -86,6 +74,7 @@ export default function Home() {
     fetchDogData()
   }, [])
 
+  // Zoek naar een specifiek hondenras en stel de staat in met de zoekresultaten
   const searchForDog = async () => {
     try {
       const res = await fetch(
@@ -98,7 +87,7 @@ export default function Home() {
       console.error(error)
     }
   }
-
+  // Handelt het formulier af om te zoeken
   const handleSubmit = (e) => {
     e.preventDefault()
     searchForDog()
@@ -147,8 +136,8 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-8 md:grid-cols-4 xl:grid-cols-4 my-10 lg:my-20 items-center content-center">
               <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByName}>    Name  {sorted.sorted === "name" ? renderArrow() : null} 	 </button>
               <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByHeight}>    Height  {sorted.sorted === "height" ? renderArrow() : null} 	 </button>
-              <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" >    Weight  {sorted.sorted === "weight" ? renderArrow() : null} 	 </button>        
-              <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" >    Life span  {sorted.sorted === "life_span" ? renderArrow() : null} 	 </button>              </div>
+              <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByWeight}>    Weight  {sorted.sorted === "weight" ? renderArrow() : null} 	 </button>        
+              <button className="my-8 black inline-flex leading-4 bg-transparent hover:bg-white hover:text-gray-400 border-black active:border-black font-semibold  py-2 px-4 border border-white hover:border-transparent rounded	" onClick={sortByLifeSpan}>    Life span  {sorted.sorted === "life_span" ? renderArrow() : null} 	 </button>              </div>
             </div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 my-10 lg:my-20">

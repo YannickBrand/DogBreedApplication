@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 
+// Definieer de functionele component SingleDog
 export default function SingleDog() {
+    // Maak een state genaamd "dog" met behulp van useState en initialiseer deze als een lege array
   const [dog, setDog] = useState([])
+  // Haal de naam van de hond uit de URL met behulp van useParams en sla deze op in de constante "name"
   const { name } = useParams()
 
+    // Gebruik useEffect om data op te halen van de API en de state "dog" te updaten zodra de component gemount wordt en wanneer de naam verandert
   useEffect(() => {
     const fetchSingleDogData = async () => {
       try {
@@ -21,6 +25,9 @@ export default function SingleDog() {
 
     fetchSingleDogData()
   }, [name])
+
+
+    // Geef informatie over de hond en een link om terug te gaan naar de homepage
 
   return (
     <>
