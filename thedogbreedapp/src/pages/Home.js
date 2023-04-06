@@ -109,7 +109,7 @@ export default function Home() {
 
               </h1>
               <p className="my-8">
-                This application uses the :{" "}
+                Powered by :{" "}
                 <a
                   href="https://thedogapi.com"
                   className="text-gray-600 underline active:text-orange-400"
